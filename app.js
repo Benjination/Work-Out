@@ -610,8 +610,34 @@ function sendDownloadLink() {
         sendBtn.textContent = 'Sending...';
         sendBtn.disabled = true;
         
-        // Send to backend API
-        sendDownloadLinkToBackend(method, contact)
+        // Send via native app or fallback
+        (async () => {
+            try {
+                const appUrl = window.location.href;
+                const message = method === 'sms' 
+                    ? `Get Ben's Workout App: ${appUrl} - Your complete 30-minute workout routine!`
+                    : `Hi! Here's your download link for Ben's Workout App: ${appUrl}\n\nYour complete 30-minute workout routine with timer and progress tracking.\n\nStay fit!`;
+                
+                if (method === 'sms') {
+                    // Try to open SMS app
+                    if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+                        const smsUrl = `sms:${contact}?body=${encodeURIComponent(message)}`;
+                        window.open(smsUrl, '_system');
+                    } else {
+                        alert(`Please text this message to ${contact}:\n\n${message}`);
+                    }
+                } else {
+                    // Open email client
+                    const subject = "Ben's Workout App - Download Link";
+                    const mailtoUrl = `mailto:${contact}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+                    window.open(mailtoUrl, '_blank');
+                }
+                return true;
+            } catch (error) {
+                console.error('Error:', error);
+                return false;
+            }
+        })()
             .then(success => {
                 if (success) {
                     const message = method === 'sms' 
