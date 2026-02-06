@@ -618,19 +618,28 @@ function sendDownloadLink() {
                     ? `Get Ben's Workout App: ${appUrl} - Your complete 30-minute workout routine!`
                     : `Hi! Here's your download link for Ben's Workout App: ${appUrl}\n\nYour complete 30-minute workout routine with timer and progress tracking.\n\nStay fit!`;
                 
-                if (method === 'sms') {
-                    // Try to open SMS app
-                    if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
-                        const smsUrl = `sms:${contact}?body=${encodeURIComponent(message)}`;
-                        window.open(smsUrl, '_system');
-                    } else {
-                        alert(`Please text this message to ${contact}:\n\n${message}`);
-                    }
-                } else {
-                    // Open email client
-                    const subject = "Ben's Workout App - Download Link";
-                    const mailtoUrl = `mailto:${contact}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-                    window.open(mailtoUrl, '_blank');
+                // Send via backend API
+                const response = await fetch('/api/send-download-link', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        method: method,
+                        contact: contact,
+                        message: message,
+                        appUrl: appUrl,
+                        installInstructions: getPWAInstallInstructions()
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Backend service unavailable');
+                }
+                
+                const result = await response.json();
+                if (!result.success) {
+                    throw new Error(result.error || 'Failed to send');
                 }
                 return true;
             } catch (error) {
@@ -869,6 +878,53 @@ document.addEventListener('DOMContentLoaded', function() {
         scheduleNotifications();
     }
 });
+
+// PWA Installation Support
+let deferredPrompt;
+let isInstallable = false;
+
+// Listen for the beforeinstallprompt event
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    isInstallable = true;
+    console.log('PWA install prompt available');
+});
+
+// Check if app is already installed
+function isPWAInstalled() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true;
+}
+
+// Get PWA installation instructions
+function getPWAInstallInstructions() {
+    const userAgent = navigator.userAgent;
+    let instructions = '';
+    
+    if (/iPhone|iPad/i.test(userAgent)) {
+        instructions = 'iPhone/iPad: Open in Safari → Tap Share button → "Add to Home Screen"';
+    } else if (/Android/i.test(userAgent)) {
+        instructions = 'Android: Open in Chrome → Tap menu (3 dots) → "Add to Home screen" or "Install app"';
+    } else {
+        instructions = 'Desktop: Look for install icon in address bar, or use browser menu → "Install app"';
+    }
+    
+    return instructions;
+}
+
+// Trigger PWA install prompt
+async function installPWA() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`PWA install outcome: ${outcome}`);
+        deferredPrompt = null;
+        isInstallable = false;
+        return outcome === 'accepted';
+    }
+    return false;
+}
 
 // Handle back button (for mobile)
 window.addEventListener('popstate', function(e) {
