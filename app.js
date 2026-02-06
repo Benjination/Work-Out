@@ -966,15 +966,15 @@ function showIOSInstallModal() {
     modal.innerHTML = `
         <div class="modal-backdrop"></div>
         <div class="modal-content">
-            <h2>📱 Install Workout App</h2>
-            <div style="text-align: left; margin: 20px 0;">
-                <p><strong>To install this app on your iPhone:</strong></p>
-                <ol style="padding-left: 20px; line-height: 1.6;">
+            <h2 style="color: #000;">📱 Install Workout App</h2>
+            <div style="text-align: left; margin: 20px 0; color: #000;">
+                <p style="color: #000;"><strong>To install this app on your iPhone:</strong></p>
+                <ol style="padding-left: 20px; line-height: 1.6; color: #000;">
                     <li>Tap the <strong>Share button</strong> <svg style="width: 16px; height: 16px; vertical-align: middle;" viewBox="0 0 24 24" fill="currentColor"><path d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z" /></svg> at the bottom of your screen</li>
                     <li>Scroll down and tap <strong>"Add to Home Screen"</strong></li>
                     <li>Tap <strong>"Add"</strong> to confirm</li>
                 </ol>
-                <div style="background: #e8f5e8; border: 1px solid #4caf50; border-radius: 6px; padding: 12px; margin-top: 15px; font-size: 0.9rem;">
+                <div style="background: #e8f5e8; border: 1px solid #4caf50; border-radius: 6px; padding: 12px; margin-top: 15px; font-size: 0.9rem; color: #2e7d32;">
                     ✅ <strong>Once installed:</strong><br>
                     • Works offline<br>
                     • Faster loading<br>
