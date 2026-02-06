@@ -2,7 +2,7 @@
     "name": "Workout App",
     "short_name": "Workout",
     "description": "Personal workout tracker with timers and notifications",
-    "start_url": "/",
+    "start_url": "./",
     "display": "standalone",
     "background_color": "#000000",
     "theme_color": "#000000",
@@ -10,13 +10,13 @@
     "categories": ["health", "fitness", "productivity"],
     "icons": [
         {
-            "src": "icon-192.png",
+            "src": "./icon-192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "icon-512.png",
+            "src": "./icon-512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
@@ -27,10 +27,10 @@
             "name": "Ben's Workout",
             "short_name": "Ben's Workout",
             "description": "Start Ben's 30-minute workout",
-            "url": "/?workout=bens",
+            "url": "./?workout=bens",
             "icons": [
                 {
-                    "src": "icon-192.png",
+                    "src": "./icon-192.png",
                     "sizes": "192x192"
                 }
             ]
