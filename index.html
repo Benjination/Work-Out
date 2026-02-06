@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout App</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <meta name="theme-color" content="#2196F3">
+    <meta name="description" content="Personal workout tracker with timers">
+    
+    <!-- PWA meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Workout App">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>💪 Workout App</h1>
+            <button id="downloadLinkBtn" class="download-link">📱 Download for your phone</button>
+        </header>
+        
+        <main class="main">
+            <!-- Home Screen -->
+            <div id="homeScreen" class="screen active">
+                <div class="workout-list">
+                    <h2>Choose Your Workout</h2>
+                    <button id="benWorkoutBtn" class="workout-btn">
+                        <span class="workout-title">Ben's Workout</span>
+                        <span class="workout-description">30-minute full body workout</span>
+                        <div class="workout-status" id="benWorkoutStatus"></div>
+                    </button>
+                    
+                    <div class="coming-soon">
+                        <p>More workouts coming soon...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Workout Overview Screen -->
+            <div id="workoutOverviewScreen" class="screen">
+                <div class="workout-header">
+                    <button id="backToHomeBtn" class="back-btn">← Back</button>
+                    <h2>Ben's Workout</h2>
+                    <div class="progress-indicator">
+                        <span id="progressText">0/0 completed</span>
+                    </div>
+                </div>
+                
+                <div class="workout-actions">
+                    <button id="markWorkoutCompleteBtn" class="mark-complete-btn">✓ Mark Entire Workout Complete</button>
+                </div>
+                
+                <div class="exercise-list" id="exerciseList">
+                    <!-- Exercises will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Exercise Detail Screen -->
+            <div id="exerciseDetailScreen" class="screen">
+                <div class="exercise-header">
+                    <button id="backToWorkoutBtn" class="back-btn">← Back</button>
+                    <h2 id="exerciseName"></h2>
+                </div>
+                
+                <div class="exercise-content">
+                    <div class="exercise-description" id="exerciseDescription"></div>
+                    
+                    <!-- Steps List -->
+                    <div class="steps-section" id="stepsSection">
+                        <h3>Steps:</h3>
+                        <div class="steps-list" id="stepsList">
+                            <!-- Steps will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="timer-section">
+                        <div class="current-step" id="currentStepInfo" style="display: none;">
+                            <h4 id="currentStepName"></h4>
+                            <p id="currentStepDescription"></p>
+                        </div>
+                        <div class="timer-display" id="timerDisplay">0:00</div>
+                        <div class="timer-controls">
+                            <button id="startTimerBtn" class="primary-btn">Start Timer</button>
+                            <button id="pauseTimerBtn" class="secondary-btn" style="display: none;">Pause</button>
+                            <button id="resetTimerBtn" class="secondary-btn">Reset</button>
+                            <button id="nextStepBtn" class="secondary-btn" style="display: none;">Next Step</button>
+                        </div>
+                    </div>
+                    
+                    <div class="completion-section" id="completionSection" style="display: none;">
+                        <button id="completeExerciseBtn" class="complete-btn">✓ Mark as Complete</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Workout Complete Modal -->
+        <div id="workoutCompleteModal" class="modal">
+            <div class="modal-content">
+                <h2>🎉 Workout Complete!</h2>
+                <p>Great job completing Ben's Workout!</p>
+                <button id="closeModalBtn" class="primary-btn">Close</button>
+            </div>
+        </div>
+        
+        <!-- Download Modal -->
+        <div id="downloadModal" class="modal">
+            <div class="modal-content">
+                <h2>📱 Download Workout App</h2>
+                <p>Get the app on your phone for easy access!</p>
+                
+                <div class="download-options">
+                    <label class="option-label">
+                        <input type="radio" name="contactMethod" value="sms" checked>
+                        📱 Send via Text Message
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="contactMethod" value="email">
+                        ✉️ Send via Email
+                    </label>
+                </div>
+                
+                <div class="contact-input">
+                    <input type="tel" id="phoneInput" placeholder="Enter phone number" class="contact-field">
+                    <input type="email" id="emailInput" placeholder="Enter email address" class="contact-field" style="display: none;">
+                </div>
+                
+                <div class="modal-actions">
+                    <button id="sendDownloadBtn" class="primary-btn">Send Link</button>
+                    <button id="cancelDownloadBtn" class="secondary-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Notification Settings Modal -->
+        <div id="notificationSettingsModal" class="modal">
+            <div class="modal-content">
+                <h2>🔔 Notification Settings</h2>
+                <p>Choose which days you want workout reminders:</p>
+                
+                <div class="day-checkboxes">
+                    <label class="day-label">
+                        <input type="checkbox" value="monday" checked> Monday
+                    </label>
+                    <label class="day-label">
+                        <input type="checkbox" value="tuesday" checked> Tuesday
+                    </label>
+                    <label class="day-label">
+                        <input type="checkbox" value="wednesday" checked> Wednesday
+                    </label>
+                    <label class="day-label">
+                        <input type="checkbox" value="thursday" checked> Thursday
+                    </label>
+                    <label class="day-label">
+                        <input type="checkbox" value="friday" checked> Friday
+                    </label>
+                    <label class="day-label">
+                        <input type="checkbox" value="saturday"> Saturday
+                    </label>
+                    <label class="day-label">
+                        <input type="checkbox" value="sunday"> Sunday
+                    </label>
+                </div>
+                
+                <div class="time-settings">
+                    <h3>Notification Times:</h3>
+                    <label class="time-label">
+                        <input type="checkbox" id="morningNotif" checked>
+                        🌅 Morning (8:00 AM)
+                    </label>
+                    <label class="time-label">
+                        <input type="checkbox" id="eveningNotif" checked>
+                        🌆 Evening (6:00 PM)
+                    </label>
+                </div>
+                
+                <div class="modal-actions">
+                    <button id="saveNotificationSettings" class="primary-btn">Save Settings</button>
+                    <button id="cancelNotificationSettings" class="secondary-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Notification Permission Banner -->
+        <div id="notificationBanner" class="notification-banner">
+            <p>Enable notifications to get daily workout reminders</p>
+            <div class="banner-actions">
+                <button id="enableNotificationsBtn" class="primary-btn">Enable</button>
+                <button id="notificationSettingsBtn" class="secondary-btn">Settings</button>
+                <button id="dismissBannerBtn" class="secondary-btn">Not now</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+    <script src="sw-register.js"></script>
+</body>
+</html>

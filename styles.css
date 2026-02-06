@@ -1,0 +1,812 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.app {
+    min-height: 100vh;
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Desktop responsive design */
+@media (min-width: 768px) {
+    .app {
+        max-width: 800px;
+        margin: 20px auto;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .main {
+        padding: 0 40px;
+    }
+    
+    .screen {
+        padding: 40px;
+    }
+    
+    .workout-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    
+    .exercise-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    
+    .timer-display {
+        font-size: 4rem;
+    }
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Main content */
+.main {
+    position: relative;
+    min-height: calc(100vh - 80px);
+}
+
+/* Screen management */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease-in-out;
+    padding: 20px;
+}
+
+.screen.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.screen.prev {
+    transform: translateX(-100%);
+}
+
+/* Home Screen */
+.workout-list h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.workout-btn {
+    width: 100%;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.workout-btn:hover {
+    border-color: #2196F3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.workout-title {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.workout-description {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.workout-status {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.workout-status.completed {
+    color: #4CAF50;
+}
+
+.workout-status.in-progress {
+    color: #FF9800;
+}
+
+.coming-soon {
+    text-align: center;
+    margin-top: 40px;
+    color: #999;
+    font-style: italic;
+}
+
+/* Workout Overview Screen */
+.workout-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: #2196F3;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.back-btn:hover {
+    color: #1976D2;
+}
+
+.progress-indicator {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.exercise-item {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.exercise-item:hover {
+    border-color: #2196F3;
+    transform: translateY(-1px);
+}
+
+.exercise-item.completed {
+    border-color: #4CAF50;
+    background: #f8fff8;
+}
+
+.exercise-item.completed::after {
+    content: '✓';
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #4CAF50;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.exercise-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.exercise-duration {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Exercise Detail Screen */
+.exercise-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.exercise-header h2 {
+    margin-left: 15px;
+    color: #333;
+}
+
+.exercise-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.exercise-description {
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.timer-section {
+    text-align: center;
+}
+
+.timer-display {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #2196F3;
+    margin-bottom: 20px;
+    font-family: 'Courier New', monospace;
+}
+
+.timer-display.active {
+    color: #4CAF50;
+}
+
+.timer-display.paused {
+    color: #FF9800;
+}
+
+.timer-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.completion-section {
+    text-align: center;
+}
+
+/* Buttons */
+.primary-btn {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+.secondary-btn {
+    background: white;
+    color: #2196F3;
+    border: 2px solid #2196F3;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.secondary-btn:hover {
+    background: #2196F3;
+    color: white;
+}
+
+.complete-btn {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.complete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 300px;
+    margin: 20px;
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* Notification Banner */
+.notification-banner {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2196F3;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px 8px 0 0;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    z-index: 999;
+    transition: transform 0.3s ease;
+}
+
+.notification-banner.hidden {
+    transform: translateX(-50%) translateY(100%);
+}
+
+.banner-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.banner-actions .primary-btn,
+.banner-actions .secondary-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+.banner-actions .secondary-btn {
+    background: transparent;
+    border-color: white;
+    color: white;
+}
+
+.banner-actions .secondary-btn:hover {
+    background: white;
+    color: #2196F3;
+}
+
+/* Mobile responsive design */
+@media (max-width: 480px) {
+    .app {
+        max-width: 100%;
+        margin: 0;
+        box-shadow: none;
+    }
+    
+    .screen {
+        padding: 15px;
+    }
+    
+    .timer-display {
+        font-size: 2.5rem;
+    }
+    
+    .timer-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .timer-controls button {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .workout-btn {
+        padding: 15px;
+    }
+    
+    .exercise-item {
+        padding: 12px;
+    }
+}
+
+/* Large desktop screens */
+@media (min-width: 1200px) {
+    .app {
+        max-width: 1000px;
+    }
+    
+    .exercise-list {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .timer-display {
+        font-size: 5rem;
+    }
+}
+/* Steps Section */
+.steps-section {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.steps-section h3 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.step-item {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.step-item:hover {
+    border-color: #2196F3;
+}
+
+.step-item.active {
+    border-color: #4CAF50;
+    background: #f8fff8;
+}
+
+.step-item.completed {
+    border-color: #4CAF50;
+    background: #f0f8f0;
+    opacity: 0.8;
+}
+
+.step-item.completed::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.step-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.step-duration {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.step-description {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* Current Step Info */
+.current-step {
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #2196F3;
+    margin-bottom: 15px;
+}
+
+.current-step h4 {
+    margin-bottom: 8px;
+    color: #1976D2;
+    font-size: 1rem;
+}
+
+.current-step p {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Header Download Link */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.download-link {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.download-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Workout Actions */
+.workout-actions {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.mark-complete-btn {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mark-complete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+/* Modal Enhancements */
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    margin: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* Download Modal */
+.download-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-label:hover {
+    border-color: #2196F3;
+    background: #f8f9ff;
+}
+
+.option-label input[type="radio"]:checked + span,
+.option-label:has(input[type="radio"]:checked) {
+    border-color: #2196F3;
+    background: #f8f9ff;
+    color: #2196F3;
+    font-weight: 500;
+}
+
+.contact-input {
+    margin-bottom: 20px;
+}
+
+.contact-field {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.contact-field:focus {
+    outline: none;
+    border-color: #2196F3;
+}
+
+/* Notification Settings Modal */
+.day-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.day-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.day-label:hover {
+    background: #f5f5f5;
+}
+
+.day-label input[type="checkbox"]:checked + span,
+.day-label:has(input[type="checkbox"]:checked) {
+    background: #e3f2fd;
+    border-color: #2196F3;
+    color: #1976D2;
+}
+
+.time-settings {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.time-settings h3 {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.time-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+/* Modal Actions */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modal-actions .primary-btn,
+.modal-actions .secondary-btn {
+    min-width: 100px;
+}
+
+/* Banner Actions Update */
+.banner-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.banner-actions .primary-btn,
+.banner-actions .secondary-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    min-width: 80px;
+}
+
+/* Mobile Responsiveness for New Elements */
+@media (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .download-link {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    .day-checkboxes {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .banner-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .banner-actions .primary-btn,
+    .banner-actions .secondary-btn {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .day-checkboxes {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
