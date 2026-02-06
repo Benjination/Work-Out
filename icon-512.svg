@@ -1,0 +1,25 @@
+<!-- Simple SVG icon for PWA -->
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#000000"/>
+  <rect x="20" y="20" width="472" height="472" fill="none" stroke="#ff0000" stroke-width="8"/>
+  
+  <!-- Dumbbell icon -->
+  <g fill="#ff0000">
+    <!-- Left weight -->
+    <rect x="64" y="192" width="42" height="128"/>
+    <rect x="54" y="202" width="62" height="20"/>
+    <rect x="54" y="290" width="62" height="20"/>
+    
+    <!-- Bar -->
+    <rect x="106" y="246" width="300" height="20"/>
+    
+    <!-- Right weight -->
+    <rect x="406" y="192" width="42" height="128"/>
+    <rect x="396" y="202" width="62" height="20"/>
+    <rect x="396" y="290" width="62" height="20"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="256" y="370" text-anchor="middle" fill="#ff0000" font-family="Impact, Arial Black" font-size="42" font-weight="900" letter-spacing="2px">WORKOUT</text>
+  <text x="256" y="410" text-anchor="middle" fill="#ffffff" font-family="Impact, Arial" font-size="24" font-weight="700" letter-spacing="1px">BEN'S APP</text>
+</svg>

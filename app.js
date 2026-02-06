@@ -619,27 +619,60 @@ function sendDownloadLink() {
                     : `Hi! Here's your download link for Ben's Workout App: ${appUrl}\n\nYour complete 30-minute workout routine with timer and progress tracking.\n\nStay fit!`;
                 
                 // Send via backend API
-                const response = await fetch('/api/send-download-link', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        method: method,
-                        contact: contact,
-                        message: message,
-                        appUrl: appUrl,
-                        installInstructions: getPWAInstallInstructions()
-                    })
-                });
-                
-                if (!response.ok) {
-                    throw new Error('Backend service unavailable');
+                // Try backend API first, fallback to client-side methods
+                try {
+                    const response = await fetch('/api/send-download-link', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            method: method,
+                            contact: contact,
+                            message: message,
+                            appUrl: appUrl,
+                            installInstructions: getPWAInstallInstructions()
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        if (result.success) {
+                            return true; // Backend worked!
+                        }
+                    }
+                    console.log('Backend not available, using client-side fallback');
+                } catch (apiError) {
+                    console.log('API error, using client-side fallback:', apiError.message);
                 }
                 
-                const result = await response.json();
-                if (!result.success) {
-                    throw new Error(result.error || 'Failed to send');
+                // Client-side fallback when backend is not available
+                if (method === 'sms') {
+                    // Try to open SMS app with PWA install instructions
+                    const smsMessage = `🏋️ Ben's Workout App\n\n${appUrl}\n\n📱 INSTALL AS APP:\n${getPWAInstallInstructions()}\n\nInstall for the best experience!`;
+                    
+                    if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+                        const smsUrl = `sms:${contact}?body=${encodeURIComponent(smsMessage)}`;
+                        window.open(smsUrl, '_system');
+                        return true;
+                    } else {
+                        // Desktop - show message to copy
+                        try {
+                            await navigator.clipboard.writeText(smsMessage);
+                            alert(`Message copied to clipboard!\n\nPlease text this to ${contact}:\n\n${smsMessage}`);
+                        } catch (clipboardError) {
+                            alert(`Please text this message to ${contact}:\n\n${smsMessage}`);
+                        }
+                        return true;
+                    }
+                } else {
+                    // Email fallback - open email client with PWA instructions
+                    const subject = "💪 Your Ben's Workout App is Ready!";
+                    const emailMessage = `Hi!\n\nYour Ben's Workout App is ready:\n${appUrl}\n\n📱 INSTALL AS APP:\n${getPWAInstallInstructions()}\n\nInstalling as an app gives you faster loading, offline access, and push notifications!\n\nStay strong! 💪`;
+                    
+                    const mailtoUrl = `mailto:${contact}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailMessage)}`;
+                    window.open(mailtoUrl, '_blank');
+                    return true;
                 }
                 return true;
             } catch (error) {
