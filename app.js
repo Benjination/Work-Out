@@ -573,7 +573,7 @@ function sendDownloadLink() {
     const emailInput = document.getElementById('emailInput');
     
     let contact = '';
-    let message = '';
+    let isValidContact = false;
     
     if (method === 'sms') {
         contact = phoneInput.value.trim();
@@ -581,21 +581,57 @@ function sendDownloadLink() {
             alert('Please enter a phone number');
             return;
         }
-        message = `Download link sent to ${contact}! Check your text messages.`;
+        // Basic phone number validation
+        const phoneRegex = /^[\+]?[1-9][\d]{0,3}[\s\-\.]?[\(]?[\d]{1,3}[\)]?[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{1,4}[\s\-\.]?[\d]{0,9}$/;
+        if (!phoneRegex.test(contact)) {
+            alert('Please enter a valid phone number');
+            return;
+        }
+        isValidContact = true;
     } else {
         contact = emailInput.value.trim();
         if (!contact) {
             alert('Please enter an email address');
             return;
         }
-        message = `Download link sent to ${contact}! Check your email.`;
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(contact)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+        isValidContact = true;
     }
     
-    // In a real app, this would send to a backend API
-    // For demo purposes, we'll just show a success message
-    alert(message + '\n\n(Demo: In production, this would send via ' + method.toUpperCase() + ')');
-    
-    closeDownloadModal();
+    if (isValidContact) {
+        // Show sending state
+        const sendBtn = document.getElementById('sendDownloadBtn');
+        const originalText = sendBtn.textContent;
+        sendBtn.textContent = 'Sending...';
+        sendBtn.disabled = true;
+        
+        // Send to backend API
+        sendDownloadLinkToBackend(method, contact)
+            .then(success => {
+                if (success) {
+                    const message = method === 'sms' 
+                        ? `Download link sent to ${contact}! Check your text messages.`
+                        : `Download link sent to ${contact}! Check your email.`;
+                    alert(message);
+                } else {
+                    alert('Failed to send download link. Please try again later.');
+                }
+            })
+            .catch(error => {
+                console.error('Error sending download link:', error);
+                alert('Error sending download link. Please check your connection and try again.');
+            })
+            .finally(() => {
+                sendBtn.textContent = originalText;
+                sendBtn.disabled = false;
+                closeDownloadModal();
+            });
+    }
 }
 
 // Mark workout complete functions

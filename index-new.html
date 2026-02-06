@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout App</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="monetization.css">
+    <script src="backend-functions.js"></script>
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <meta name="theme-color" content="#2196F3">
+    <meta name="description" content="Personal workout tracker with timers">
+    
+    <!-- PWA meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Workout App">
+</head>
+<body>
+    <div class="app">
+        <!-- Left Ad Space -->
+        <aside class="ad-space left-ad" id="leftAd">
+            <div class="ad-placeholder">
+                <h3>MONSTER ENERGY</h3>
+                <p>Unleash the Beast!</p>
+                <img src="https://via.placeholder.com/250x300/000/0f0?text=MONSTER+AD" alt="Monster Energy Ad">
+                <a href="https://monster.com" target="_blank" class="ad-link">GET MONSTER →</a>
+            </div>
+        </aside>
+        
+        <!-- Right Ad Space -->
+        <aside class="ad-space right-ad" id="rightAd">
+            <div class="ad-placeholder">
+                <h3>WHEY PROTEIN</h3>
+                <p>Build Muscle Fast</p>
+                <img src="https://via.placeholder.com/250x300/000/f00?text=PROTEIN+AD" alt="Protein Ad">
+                <a href="#" class="ad-link">SHOP NOW →</a>
+            </div>
+        </aside>
+        
+        <!-- Donate Section -->
+        <aside class="donate-section" id="donateSection">
+            <div class="donate-box">
+                <h3>💪 SUPPORT THE APP</h3>
+                <p>Help keep this app free!</p>
+                <div id="paypal-button-container"></div>
+                <form action="https://www.paypal.com/donate" method="post" target="_blank">
+                    <input type="hidden" name="hosted_button_id" value="YOUR_PAYPAL_BUTTON_ID" />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" 
+                           border="0" name="submit" title="PayPal - The safer, easier way to pay online!" 
+                           alt="Donate with PayPal button" class="paypal-donate-btn" />
+                </form>
+                <p class="donate-text">Every donation helps maintain and improve the app!</p>
+            </div>
+        </aside>
+        
+        <header class="header">
+            <h1>WORKOUT APP</h1>
+            <button id="downloadLinkBtn" class="download-link">Download for your phone</button>
+        </header>
+        
+        <main class="main">
+            <!-- Home Screen -->
+            <div id="homeScreen" class="screen active">
+                <div class="workout-list">
+                    <h2>Choose Your Workout</h2>
+                    <button id="benWorkoutBtn" class="workout-btn">
+                        <span class="workout-title">Ben's Workout</span>
+                        <span class="workout-description">30-minute full body workout</span>
+                        <div class="workout-status" id="benWorkoutStatus"></div>
+                    </button>
+                    
+                    <div class="coming-soon">
+                        <p>More workouts coming soon...</p>
+                    </div>
+                    
+                    <!-- Mobile Ad Banner -->
+                    <div class="mobile-ad-banner">
+                        <h3>💪 GET PUMPED!</h3>
+                        <p>Monster Energy & Protein Supplements</p>
+                        <a href="https://monster.com" class="mobile-ad-link">SHOP NOW →</a>
+                    </div>
+                    
+                    <!-- Mobile Donate Section -->
+                    <div class="mobile-donate">
+                        <h3>Support the App ❤️</h3>
+                        <p>Help keep Ben's Workout free for everyone!</p>
+                        <form action="https://www.paypal.com/donate" method="post" target="_blank">
+                            <input type="hidden" name="hosted_button_id" value="YOUR_PAYPAL_BUTTON_ID" />
+                            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" 
+                                   border="0" name="submit" title="PayPal - Donate!" 
+                                   alt="Donate with PayPal button" class="paypal-donate-btn-mobile" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Continue with the rest of the original HTML structure -->
+            <!-- Workout Overview Screen -->
+            <div id="workoutOverviewScreen" class="screen">
+                <div class="workout-header">
+                    <button id="backToHomeBtn" class="back-btn">← Back</button>
+                    <h2>Ben's Workout</h2>
+                    <div class="progress-indicator">
+                        <span id="progressText">0/0 completed</span>
+                    </div>
+                </div>
+                
+                <div class="workout-actions">
+                    <button id="markWorkoutCompleteBtn" class="mark-complete-btn">Mark Workout Complete</button>
+                </div>
+                
+                <div class="exercise-list" id="exerciseList">
+                    <!-- Exercises will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Rest of the original HTML content continues... -->
+            
+        </main>
+        
+        <!-- Keep all the original modals and scripts -->
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

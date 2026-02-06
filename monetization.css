@@ -1,0 +1,151 @@
+/* Ad Spaces and Monetization */
+.ad-space {
+    background: linear-gradient(135deg, #1a1a1a, #333);
+    border: 2px solid #ff0000;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.left-ad {
+    grid-area: left-ad;
+}
+
+.right-ad {
+    grid-area: right-ad;
+}
+
+.ad-placeholder {
+    color: #ffffff;
+}
+
+.ad-placeholder h3 {
+    font-family: "Impact", "Arial Black", sans-serif !important;
+    font-weight: 900 !important;
+    font-size: 1.8rem;
+    color: #ff0000;
+    letter-spacing: 2px !important;
+    text-shadow: 2px 2px 0px #000;
+    margin-bottom: 10px;
+}
+
+.ad-placeholder p {
+    font-family: "Impact", Arial, sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem;
+    color: #ffffff;
+    letter-spacing: 1px !important;
+    margin-bottom: 15px;
+}
+
+.ad-placeholder img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ff0000;
+    margin-bottom: 15px;
+}
+
+.ad-link {
+    display: inline-block;
+    background: #ff0000;
+    color: #ffffff;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-family: "Impact", Arial, sans-serif !important;
+    font-weight: 900 !important;
+    letter-spacing: 2px !important;
+    border: 2px solid #000;
+    transition: all 0.2s ease;
+}
+
+.ad-link:hover {
+    background: #ffffff;
+    color: #ff0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255,0,0,0.3);
+}
+
+/* Donate Section */
+.donate-section {
+    grid-area: donate;
+    background: linear-gradient(135deg, #000, #1a1a1a);
+    border: 2px solid #ff0000;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.donate-box h3 {
+    font-family: "Impact", "Arial Black", sans-serif !important;
+    font-weight: 900 !important;
+    font-size: 1.6rem;
+    color: #ff0000;
+    letter-spacing: 2px !important;
+    text-shadow: 2px 2px 0px #000;
+    margin-bottom: 10px;
+}
+
+.donate-box p {
+    font-family: "Impact", Arial, sans-serif !important;
+    font-weight: 700 !important;
+    color: #ffffff;
+    letter-spacing: 1px !important;
+    margin-bottom: 15px;
+}
+
+.paypal-donate-btn {
+    filter: brightness(1.1) contrast(1.2);
+    transition: all 0.2s ease;
+}
+
+.paypal-donate-btn:hover {
+    filter: brightness(1.3) contrast(1.4);
+    transform: scale(1.05);
+}
+
+.donate-text {
+    font-size: 0.8rem !important;
+    color: #cccccc !important;
+    margin-top: 10px !important;
+}
+
+/* Mobile ad adjustments */
+@media (max-width: 767px) {
+    .ad-space, .donate-section {
+        display: none;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .donate-section {
+        display: none;
+    }
+    
+    .ad-space {
+        position: fixed;
+        width: 200px;
+        padding: 15px;
+    }
+    
+    .left-ad {
+        left: 10px;
+        top: 20%;
+    }
+    
+    .right-ad {
+        right: 10px;
+        top: 20%;
+    }
+}
+
+/* Desktop full layout */
+@media (min-width: 1200px) {
+    .ad-space, .donate-section {
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}

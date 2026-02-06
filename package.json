@@ -1,0 +1,27 @@
+{
+  "name": "workout-app",
+  "version": "1.0.0",
+  "description": "Progressive Web App for Ben's Workout with SMS/Email functionality",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "install-deps": "npm install express nodemailer twilio dotenv",
+    "serve-static": "python3 -m http.server 8003"
+  },
+  "keywords": ["workout", "pwa", "fitness", "timer"],
+  "author": "Workout App Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.8",
+    "twilio": "^4.19.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
